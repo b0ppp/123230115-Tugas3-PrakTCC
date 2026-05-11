@@ -21,7 +21,7 @@ app.use(express.json());
 
 // Health check (dibutuhkan App Engine & Cloud Run)
 app.get('/', (req, res) => {
-  res.json({ status: 'ok', message: 'Notes Backend berjalan!' });
+  res.send('Notes backend berjalan');
 });
 
 // Routes
