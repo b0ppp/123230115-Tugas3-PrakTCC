@@ -12,7 +12,11 @@ const allowedOrigins = process.env.FRONTEND_URL
   ? [process.env.FRONTEND_URL, 'http://localhost:3000', 'http://localhost:5500']
   : true; // izinkan semua jika belum diset
 
-app.use(cors({ origin: allowedOrigins }));
+app.use(cors({
+  origin: 'https://angelic-bee-477417-t8.et.r.appspot.com',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type']
+}));
 app.use(express.json());
 
 // Health check (dibutuhkan App Engine & Cloud Run)
