@@ -3,7 +3,7 @@
 // Contoh App Engine : https://notes-backend-dot-PROJECT_ID.appspot.com/api/notes
 // Contoh Cloud Run  : https://notes-backend-XXXXX-uc.a.run.app/api/notes
 // ============================================================
-const API_URL = 'https://notes-backend-514828886605.us-central1.run.app/';
+const API_URL = 'https://notes-backend-514828886605.us-central1.run.app/api/notes';
 
 // Ambil elemen HTML
 const noteForm    = document.getElementById('noteForm');
@@ -18,7 +18,10 @@ const btnCancel   = document.getElementById('btnCancel');
 async function fetchNotes() {
   try {
     const response = await fetch(API_URL);
-    const notes    = await response.json();
+    const result = await response.json();
+
+    // proteksi agar tidak error jika data kosong
+    const notes = Array.isArray(result) ? result : (result.data || []);
 
     notesList.innerHTML = '';
 
