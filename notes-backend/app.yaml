@@ -1,0 +1,21 @@
+# ============================================================
+# app.yaml – Backend Notes (App Engine)
+# Digunakan pada Skenario 1: Backend di App Engine
+# ============================================================
+runtime: nodejs20
+
+# Port 8080 sudah di-handle otomatis oleh App Engine
+# Semua variabel lingkungan di sini TIDAK perlu file .env
+
+env_variables:
+  DB_HOST: "34.172.113.167"
+  DB_USER: "admin"
+  DB_PASSWORD: "#password#"
+  DB_NAME: "notes_NIM"          # ← GANTI "NIM" dengan NIM kamu, contoh: notes_123456789
+  DB_TABLE: "notes_NIM"         # ← GANTI "NIM" dengan NIM kamu, contoh: notes_123456789
+  FRONTEND_URL: "https://FRONTEND_URL_SETELAH_DEPLOY"   # ← isi setelah frontend di-deploy
+
+# Konfigurasi autoscaling (opsional, hemat resource)
+automatic_scaling:
+  min_instances: 0
+  max_instances: 2
