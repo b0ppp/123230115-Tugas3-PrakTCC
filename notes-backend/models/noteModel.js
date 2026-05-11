@@ -3,7 +3,7 @@ const db = require('../config/database');
 require('dotenv').config();
 
 // Nama tabel sesuai format Tugas 3: notes_NIM  (contoh: notes_123456789)
-const TABLE = process.env.DB_TABLE || 'notes_NIM';
+const TABLE = process.env.DB_TABLE || 'notes_123230115';
 
 const NoteModel = {
   getAllNotes: async () => {
