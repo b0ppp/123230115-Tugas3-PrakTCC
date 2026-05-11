@@ -1,0 +1,26 @@
+### 1. Tambah Catatan Baru (POST)
+POST http://localhost:3000/api/notes
+Content-Type: application/json
+
+{
+    "judul": "Catatan ABIS LEBARAN",
+    "isi": "Lorem Ipsum"
+}
+
+
+### 2. Lihat Semua Catatan (GET)
+GET http://localhost:3000/api/notes
+
+
+### 3. Edit Catatan (PUT)
+PUT http://localhost:3000/api/notes/5
+Content-Type: application/json
+
+{
+    "judul": "Catatan 5 Diedit",
+    "isi": "Isi catatan nomor 5 sudah DIEDIT."
+}
+
+
+### 4. Hapus Catatan (DELETE)
+DELETE http://localhost:3000/api/notes/5
