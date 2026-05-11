@@ -1,113 +1,71 @@
-# Tugas 3 – Deployment Notes App ke App Engine & Cloud Run
+# 📝 Notes App - Simpan Ide dan Catatanmu Kapan Saja!
 
-## ⚠️ LANGKAH WAJIB SEBELUM DEPLOY
+Selamat datang di **Notes App**!
 
-### 1. Ganti semua placeholder `NIM`
-Cari teks `NIM` di file-file berikut dan ganti dengan NIM kamu:
+Pernahkah Anda tiba-tiba mendapat ide cemerlang, daftar tugas yang harus diingat, atau sekadar ingin menulis catatan singkat, tapi bingung mau mencatat di mana? Notes App hadir untuk membantu Anda menyimpan semua hal penting tersebut dengan cepat, rapi, dan mudah diakses.
 
-| File | Yang diganti |
-|------|-------------|
-| `notes-backend/.env` | `notes_NIM` → `notes_123456789` (2x) |
-| `notes-backend/app.yaml` | `notes_NIM` → `notes_123456789` (2x) |
-| `notes_db_tugas3.sql` | `notes_NIM` → `notes_123456789` (3x) |
-
-### 2. Buat Database & Tabel di phpMyAdmin
-1. Buka https://phpmyadmin.cc/ → login dengan admin / #password#
-2. Klik tab **SQL**
-3. Copy-paste isi `notes_db_tugas3.sql` (setelah NIM diganti)
-4. Klik **Go**
+Aplikasi ini dirancang khusus dengan antarmuka yang sangat bersih, bebas iklan, dan mudah digunakan oleh siapa saja tanpa perlu proses pendaftaran yang rumit.
 
 ---
 
-## 🚀 SKENARIO 2 – Backend di Cloud Run, Frontend di App Engine
+## ✨ Fitur Utama
 
-### A. Deploy Backend ke Cloud Run
-
-```bash
-cd notes-backend
-
-# Build dan push Docker image
-gcloud builds submit --tag gcr.io/PROJECT_ID/notes-backend
-
-# Deploy ke Cloud Run dengan variabel lingkungan
-gcloud run deploy notes-backend \
-  --image gcr.io/PROJECT_ID/notes-backend \
-  --platform managed \
-  --region asia-southeast2 \
-  --allow-unauthenticated \
-  --port 8080 \
-  --set-env-vars DB_HOST=34.172.113.167,DB_USER=admin,DB_PASSWORD="#password#",DB_NAME=notes_NIM,DB_TABLE=notes_NIM \
-  --project PROJECT_ID
-
-# Catat URL, contoh:
-# https://notes-backend-XXXXX-et.a.run.app
-```
-
-### B. Update script.js Frontend dengan URL Backend
-Buka `notes-frontend/script.js`, ubah baris pertama:
-```js
-const API_URL = 'https://notes-backend-XXXXX-et.a.run.app/api/notes';
-```
-
-### C. Deploy Frontend ke App Engine
-
-```bash
-cd notes-frontend
-
-# Install dependencies
-npm install
-
-# Deploy ke App Engine sebagai service terpisah
-gcloud app deploy app.yaml \
-  --project=PROJECT_ID
-
-# Catat URL, contoh:
-# https://notes-frontend-dot-PROJECT_ID.appspot.com
-```
-
-### D. Update FRONTEND_URL di Cloud Run Backend
-```bash
-gcloud run services update notes-backend \
-  --update-env-vars FRONTEND_URL=https://notes-frontend-dot-PROJECT_ID.appspot.com \
-  --region asia-southeast2 \
-  --project PROJECT_ID
-```
+* **✏️ Catat Cepat:** Masukkan judul dan isi catatan Anda, lalu simpan dalam hitungan detik.
+* **📖 Tampilan Rapi:** Catatan ditampilkan dalam bentuk kartu (grid) yang memudahkan pencarian informasi.
+* **📝 Fitur Edit & Hapus:** Perbarui informasi catatan atau hapus tugas yang sudah selesai dengan satu klik.
+* **☁️ Penyimpanan Awan (Cloud):** Berkat infrastruktur Google Cloud, catatan Anda tersimpan aman dan dapat diakses dari perangkat mana pun.
+* **⚡ Performa Responsif:** Menggunakan teknologi modern untuk memastikan setiap perubahan terjadi seketika tanpa *loading* yang lama.
 
 ---
 
-## 🧪 Pengujian Endpoint Backend (Postman / REST Client)
+## 🚀 Cara Menggunakan Aplikasi
 
-```
-GET    https://BACKEND_URL/api/notes
-POST   https://BACKEND_URL/api/notes        Body: {"judul":"Test","isi":"Isi test"}
-PUT    https://BACKEND_URL/api/notes/1      Body: {"judul":"Edit","isi":"Isi baru"}
-DELETE https://BACKEND_URL/api/notes/1
-```
+1. **Membuat Catatan:** Isi kolom "Judul" dan "Isi Catatan" di bagian atas, lalu klik **Tambah Catatan**.
+2. **Mengubah Catatan:** Klik tombol **Edit** pada kartu catatan, perbarui isinya, dan simpan.
+3. **Menghapus Catatan:** Klik tombol **Hapus** (merah) untuk menghapus catatan secara permanen.
 
 ---
 
-## 📁 Struktur File
+## 🌐 Coba Aplikasinya Sekarang!
 
-```
+Aplikasi ini sudah beroperasi secara *online* dan dapat langsung Anda coba melalui tautan berikut:
+
+👉 **[Buka Notes App di Sini](https://angelic-bee-477417-t8.et.r.appspot.com)**
+
+---
+
+## 📁 Struktur Proyek
+
+Untuk keperluan teknis, berikut adalah gambaran susunan file (*source code*) yang membangun aplikasi ini:
+
+```text
 TUGAS_3_CODE/
-├── notes-backend/
-│   ├── config/database.js
-│   ├── controllers/noteController.js
-│   ├── models/noteModel.js
-│   ├── routes/noteRoutes.js
-│   ├── index.js
-│   ├── package.json
-│   ├── .env              ← untuk lokal / Cloud Run env
-│   ├── Dockerfile        ← untuk Cloud Run
-│   └── .gcloudignore
-├── notes-frontend/
-│   ├── index.html
-│   ├── style.css
-│   ├── script.js         ← UPDATE API_URL setelah deploy backend!
-│   ├── server.js         ← static file server untuk App Engine
-│   ├── package.json
-│   ├── app.yaml          ← untuk App Engine
-│   ├── Dockerfile        ← untuk Cloud Run (nginx)
-│   ├── nginx.conf
-│   └── .gcloudignore
-```
+├── notes-backend/          # Layanan API (Mesin utama penyimpan data)
+│   ├── config/             
+│   │   └── database.js     # Pengaturan koneksi ke sistem database
+│   ├── controllers/        
+│   │   └── noteController.js # Logika untuk memproses catatan (Tambah, Edit, Hapus)
+│   ├── models/             
+│   │   └── noteModel.js    # Cetak biru struktur data di database
+│   ├── routes/             
+│   │   └── noteRoutes.js   # Jalur akses komunikasi sistem (Endpoint API)
+│   ├── .env                
+│   ├── .env.example        
+│   ├── .gcloudignore       
+│   ├── api.rest            
+│   ├── cloudbuild.yaml     # Perintah otomatisasi update (CI/CD) ke Cloud Run
+│   ├── Dockerfile          # Instruksi pembuatan wadah sistem (Container)
+│   ├── index.js            
+│   └── package.json        
+├── notes-frontend/         # Antarmuka Pengguna (Tampilan web interaktif)
+│   ├── .gcloudignore       
+│   ├── app.yaml            # Konfigurasi peluncuran web di Google App Engine
+│   ├── cloudbuild.yaml     # Perintah otomatisasi update tampilan (CI/CD)
+│   ├── Dockerfile          # Instruksi server web alternatif (opsional)
+│   ├── index.html          
+│   ├── nginx.conf          
+│   ├── package.json        
+│   ├── script.js           
+│   ├── server.js           
+│   └── style.css           
+└── README.md               
