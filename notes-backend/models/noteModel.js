@@ -13,6 +13,14 @@ const NoteModel = {
     return rows;
   },
 
+  getNoteById: async (id) => {
+    const [rows] = await db.query(
+      `SELECT * FROM \`${TABLE}\` WHERE id = ?`,
+      [id]
+    );
+    return rows[0];
+  },
+
   createNote: async (judul, isi) => {
     const [result] = await db.query(
       `INSERT INTO \`${TABLE}\` (judul, isi) VALUES (?, ?)`,
