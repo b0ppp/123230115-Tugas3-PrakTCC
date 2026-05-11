@@ -3,7 +3,7 @@
 // Contoh App Engine : https://notes-backend-dot-PROJECT_ID.appspot.com/api/notes
 // Contoh Cloud Run  : https://notes-backend-XXXXX-uc.a.run.app/api/notes
 // ============================================================
-const API_URL = 'https://BACKEND_URL_SETELAH_DEPLOY/api/notes';
+const API_URL = 'https://notes-backend-514828886605.us-central1.run.app/';
 
 // Ambil elemen HTML
 const noteForm    = document.getElementById('noteForm');
