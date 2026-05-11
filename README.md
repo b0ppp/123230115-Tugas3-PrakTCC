@@ -2,6 +2,23 @@
 
 ## ⚠️ LANGKAH WAJIB SEBELUM DEPLOY
 
+### 1. Ganti semua placeholder `NIM`
+Cari teks `NIM` di file-file berikut dan ganti dengan NIM kamu:
+
+| File | Yang diganti |
+|------|-------------|
+| `notes-backend/.env` | `notes_NIM` → `notes_123456789` (2x) |
+| `notes-backend/app.yaml` | `notes_NIM` → `notes_123456789` (2x) |
+| `notes_db_tugas3.sql` | `notes_NIM` → `notes_123456789` (3x) |
+
+### 2. Buat Database & Tabel di phpMyAdmin
+1. Buka https://phpmyadmin.cc/ → login dengan admin / #password#
+2. Klik tab **SQL**
+3. Copy-paste isi `notes_db_tugas3.sql` (setelah NIM diganti)
+4. Klik **Go**
+
+---
+
 ## 🚀 SKENARIO 2 – Backend di Cloud Run, Frontend di App Engine
 
 ### A. Deploy Backend ke Cloud Run
