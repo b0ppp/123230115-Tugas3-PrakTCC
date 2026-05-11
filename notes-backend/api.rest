@@ -1,5 +1,5 @@
 ### 1. Tambah Catatan Baru (POST)
-POST https://notes-backend-514828886605.us-central1.run.app/api/notes
+POST http://localhost:3000/api/notes/
 Content-Type: application/json
 
 {
@@ -9,16 +9,16 @@ Content-Type: application/json
 
 
 ### 2. Lihat Semua Catatan (GET)
-GET https://notes-backend-514828886605.us-central1.run.app/api/notes/:2
+GET http://localhost:3000/api/notes/
 
 
 ### 3. Edit Catatan (PUT)
-PUT http://localhost:3000/api/notes/5
+PUT http://localhost:3000/api/notes/4
 Content-Type: application/json
 
 {
-    "judul": "Catatan 5 Diedit",
-    "isi": "Isi catatan nomor 5 sudah DIEDIT."
+    "judul": "Catatan 4 Diedit",
+    "isi": "Isi catatan nomor 4 sudah DIEDIT."
 }
 
 

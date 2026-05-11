@@ -98,7 +98,6 @@ TUGAS_3_CODE/
 │   ├── index.js
 │   ├── package.json
 │   ├── .env              ← untuk lokal / Cloud Run env
-│   ├── app.yaml          ← untuk App Engine
 │   ├── Dockerfile        ← untuk Cloud Run
 │   └── .gcloudignore
 ├── notes-frontend/
@@ -111,5 +110,4 @@ TUGAS_3_CODE/
 │   ├── Dockerfile        ← untuk Cloud Run (nginx)
 │   ├── nginx.conf
 │   └── .gcloudignore
-└── notes_db_tugas3.sql   ← jalankan di phpMyAdmin setelah ganti NIM
 ```
